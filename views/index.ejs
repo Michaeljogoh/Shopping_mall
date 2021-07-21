@@ -1,0 +1,28 @@
+    <%- include('partials/header')%>
+
+
+    <a href="users/update">Update profile</a>
+    
+
+    
+    
+    <div class="container">
+    <% topics.forEach(function(topic){ %>
+                 <!-- console.log(topics) %> -->
+    
+    <h2><a href="/post/<%=topic.topic_name%>"><%= topic.topic_name %></a></h2>
+   
+     <hr class="hr">
+    <% }) %>
+
+</div>
+    
+    
+      
+         
+    <%- include('partials/footer')%>
+
+    
+        
+    
+
