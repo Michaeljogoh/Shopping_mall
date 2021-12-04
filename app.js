@@ -1,4 +1,3 @@
-
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express();
@@ -20,7 +19,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded({extended:true}));
 
 //Connection to the mongoDB dtatbase
-mongoose.connect('mongodb://localhost:27017/TsbDB', {useNewUrlParser:true, useUnifiedTopology:true})
+mongoose.connect('mongodb://localhost:27017/upbaseDB', {useNewUrlParser:true, useUnifiedTopology:true})
 .then(() => console.log('Mongo DB connected...'))
 .catch(err => console.log(err));
 

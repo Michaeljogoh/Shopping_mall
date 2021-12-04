@@ -2,3 +2,74 @@
 <h1 class="mt-4">Dashboard</h1>
 <P class="lead mb-3">Welcome <%= name %></P>
 <a href="/users/logout" class="btn btn-secondary">Logout</a>
+<br><br>
+
+<a href="/users/update" class="btn btn-secondary">Update Profile</a>
+<br><br>
+
+<a href="/delete" class="btn btn-secondary">Delete Profile</a>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="profile-pic-div">
+  <img src="images/image.jpg" id="photo">
+  <input type="file" id="file">
+  <label for="file" id="uploadBtn">Choose Photo</label>
+</div>
+
+<script>
+//declearing html elements
+
+const imgDiv = document.querySelector('.profile-pic-div');
+const img = document.querySelector('#photo');
+const file = document.querySelector('#file');
+const uploadBtn = document.querySelector('#uploadBtn');
+
+//if user hover on img div 
+
+imgDiv.addEventListener('mouseenter', function(){
+    uploadBtn.style.display = "block";
+});
+
+//if we hover out from img div
+
+imgDiv.addEventListener('mouseleave', function(){
+    uploadBtn.style.display = "none";
+});
+
+
+
+file.addEventListener('change', function(){
+    //this refers to file
+    const choosedFile = this.files[0];
+
+    if (choosedFile) {
+
+        const reader = new FileReader(); //FileReader is a predefined function of JS
+
+        reader.addEventListener('load', function(){
+            img.setAttribute('src', reader.result);
+        });
+
+        reader.readAsDataURL(choosedFile);
+
+        
+    }
+});
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

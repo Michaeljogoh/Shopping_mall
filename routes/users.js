@@ -89,7 +89,33 @@ router.post("/register", (req,res)=>{
             }
         });
     }   
- })
+ });
+
+//  update profile
+ router.get('/update', (req, res)=>{
+    let name = req.user.name;
+    let email = req.user.email;
+    let password = req.user.password;
+    if(req.user){
+        res.render('update',{
+            name,
+            email
+        })
+    } else {
+
+       req.flash('errors_msg', 'Please log in again to update')
+        
+        res.status(400).render('updated')
+    }
+
+
+
+     res.render('update',{
+         name,
+         email,
+         
+     })
+});
 
     router.post("/update", (req,res)=>{
    const {name, email, password, password2, date}= req.body;
@@ -135,7 +161,7 @@ router.post("/register", (req,res)=>{
 
                 User.deleteOne({email:email}, function(err){
                     if(err){
-                        console.log("faild to delete" + err)
+                        console.log("failed to delete" + err)
                     } else {
                         console.log("user deleted")
                     }
@@ -214,38 +240,21 @@ transporter.sendMail(mailOptions, function(err, data){
      req.flash('success_msg', 'you are logged out');
      res.redirect('/users/login');
  })
- router.get('/update', (req, res)=>{
-     let name = req.user.name;
-     let email = req.user.email;
-     let password = req.user.password;
-     if(req.user){
-         res.render('update',{
-             name,
-             email
-         })
-     } else {
-
-        req.flash('errors_msg', 'Please log in again to update')
-         
-         res.status(400).render('updated')
-     }
 
 
-
-      res.render('update',{
-          name,
-          email,
-          
-      })
- })
-
-router.get('/welcome', (req, res)=>{
-    res.render('welcome')
+router.get('/delete/:userId', (req, res) => {
+    let user_id = req.params.userId
+    Users.deleteOne({ _id: req.params.userId }, (error, posts) => {
+        if (error) {
+            console.warn(error);
+        }
+        else {
+            data = posts
+            res.render("delete", {"data": data})
+        }
+    });
 });
 
-router.get('/about', (req , res)=>{
-    res.render('about')
-});
 
   
 module.exports=router
